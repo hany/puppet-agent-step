@@ -1,0 +1,25 @@
+name: puppet-agent-step
+version: 1.0
+rundeckPluginVersion: 1.0
+author: Hany Fahim
+date: 10/10/15
+providers:
+  - name: puppet-agent-step
+    service: RemoteScriptNodeStep
+    title: Puppet Agent
+    description: Run puppet agent on the local system.
+    plugin-type: script
+    script-interpreter: /bin/bash
+    script-file: puppet_agent
+    script-args: '${job.loglevel} ${config.noop} ${config.arguments}'
+    config:
+      - type: Boolean
+        name: noop
+        title: Dry Run
+        description: Run with --noop
+        default: true
+      - type: String
+        name: arguments
+        title: Arguments
+        description: Arguments to pass to puppet agent
+        default: ""

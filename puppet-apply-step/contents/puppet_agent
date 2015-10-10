@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+#
+#/ usage: puppet_agent sudo loglevel manifest args
+
+set -ue ; # fail fast.
+
+if (( $# < 3 ))
+then grep '^#/ usage:' <"$0" | cut -c4- >&2; exit 2
+fi
+
+LOGLEVEL=$1; shift;
+NOOP=$1; shift;
+
+PUPPET_CMD="sudo puppet agent"
+
+if [[ "${LOGLEVEL}" == DEBUG ]]
+then PUPPET_CMD="$PUPPET_CMD --debug"
+fi
+
+if [[ "${NOOP}" == true ]]
+then PUPPET_CMD="$PUPPET_CMD --noop"
+fi
+
+printf >&2 "Executing : $PUPPET_CMD $@ \n"
+
+$PUPPET_CMD "$@"
+
+exit $?
+# Done.
