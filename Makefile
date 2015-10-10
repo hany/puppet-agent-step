@@ -1,5 +1,5 @@
 # makefile
-pluginname=puppet-apply-step
+pluginname=puppet-agent-step
 pluginfile=$(pluginname).zip
 FILES=$(shell find $(pluginname))
 
